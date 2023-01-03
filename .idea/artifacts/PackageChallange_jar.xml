@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PackageChallange:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PackageChallange_jar</output-path>
+    <root id="archive" name="PackageChallange.jar">
+      <element id="module-output" name="MVC java app" />
+    </root>
+  </artifact>
+</component>
