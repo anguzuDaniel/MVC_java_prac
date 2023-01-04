@@ -1,6 +1,6 @@
 package challange.java_swing.controller;
 
-import challange.java_swing.gui.FormEvent;
+import challange.java_swing.view.FormEvent;
 import challange.java_swing.model.*;
 
 import java.util.List;
@@ -26,15 +26,14 @@ public class Controller {
 
         switch (ageCatId) {
             case 0:
-                ageCat = AgeCategory.child;
+                ageCat = AgeCategory.CHILD;
                 break;
             case 1:
-                ageCat = AgeCategory.adult;
+                ageCat = AgeCategory.ADULT;
                 break;
             case 2:
-                ageCat = AgeCategory.senior;
+                ageCat = AgeCategory.SENIOR;
                 break;
-
         }
 
         EmploymentCategory employmentCategory;
@@ -53,9 +52,9 @@ public class Controller {
         Gender genderCat;
 
         if (gender.equals("male")) {
-            genderCat = Gender.male;
+            genderCat = Gender.MALE;
         } else {
-            genderCat = Gender.female;
+            genderCat = Gender.FEMALE;
         }
 
         Person person = new Person(name, occupation, ageCat, employmentCategory, taxId, isUs, genderCat);

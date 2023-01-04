@@ -7,7 +7,7 @@ public class Database {
     private final ArrayList<Person> people;
 
     public Database() {
-        people = new ArrayList<Person>();
+        people = new ArrayList<>();
     }
 
     public void connect() {

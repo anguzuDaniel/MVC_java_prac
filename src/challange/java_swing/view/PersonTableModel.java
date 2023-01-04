@@ -1,4 +1,4 @@
-package challange.java_swing.gui;
+package challange.java_swing.view;
 
 import challange.java_swing.model.Person;
 

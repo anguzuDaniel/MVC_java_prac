@@ -1,4 +1,4 @@
-package challange.java_swing.gui;
+package challange.java_swing.view;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileView;
