@@ -4,6 +4,7 @@ import app.controller.Controller;
 import app.view.Tables.PersonTableListener;
 import app.view.Tables.TablePanel;
 import app.view.fileInput.PersonFileFilter;
+import app.view.preferences.PrefsDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class MainFrame extends JFrame {
     private final JFileChooser fileChooser;
     private Controller controller;
     private TablePanel tablePanel;
+    private PrefsDialog prefsDialog;
 
 
     public MainFrame() {
@@ -29,6 +31,7 @@ public class MainFrame extends JFrame {
         toolBar = new ToolBar();
         formPanel = new FormPanel();
         tablePanel = new TablePanel();
+        prefsDialog = new PrefsDialog(this);
 
         controller = new Controller();
 
@@ -86,13 +89,26 @@ public class MainFrame extends JFrame {
         fileMenu.add(exitItem);
 
         JMenu windowMenu = new JMenu("Window");
+
+        // shows side table
         JMenu showMenu = new JMenu("Show");
+
+        // adds preference list and dialog
+        JMenuItem prefsItem = new JMenuItem("Preferences...");
 
         JCheckBoxMenuItem showFormItem = new JCheckBoxMenuItem("Person Form");
         showFormItem.setSelected(true);
 
         showMenu.add(showFormItem);
         windowMenu.add(showMenu);
+        windowMenu.add(prefsItem);
+
+        prefsItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                prefsDialog.setVisible(true);
+            }
+        });
 
         showFormItem.addActionListener(new ActionListener() {
             @Override
