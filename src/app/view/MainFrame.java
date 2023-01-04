@@ -1,6 +1,7 @@
 package app.view;
 
 import app.controller.Controller;
+import app.view.Tables.PersonTableListener;
 import app.view.Tables.TablePanel;
 import app.view.fileInput.PersonFileFilter;
 
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 public class MainFrame extends JFrame {
 
@@ -31,6 +33,12 @@ public class MainFrame extends JFrame {
         controller = new Controller();
 
         tablePanel.setData(controller.getPeople());
+
+        tablePanel.setPersonTableListener(new PersonTableListener() {
+            public void rowDeleted(int row) {
+                controller.removePerson(row);
+            }
+        });
 
         fileChooser = new JFileChooser();
         fileChooser.addChoosableFileFilter(new PersonFileFilter());
@@ -101,11 +109,22 @@ public class MainFrame extends JFrame {
         // accelerators add key commands to a section on the page for example exit(CTRL X)
         exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
 
+        // opens the import dialog and to import a file
+        importDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
+
         importDataItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 //              // chooses a file using the file choosers class
                 if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        controller.loadFromFile(fileChooser.getSelectedFile());
+                        tablePanel.refresh();
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(MainFrame.this, "Could not load data from file");
+                    } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     System.out.println(fileChooser.getSelectedFile());
                 }
             }
@@ -116,6 +135,11 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
 //              // chooses a file using the file choosers class
                 if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        controller.saveToFile(fileChooser.getSelectedFile());
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(MainFrame.this, "Could not save data to file");
+                    }
                     System.out.println(fileChooser.getSelectedFile());
                 }
             }

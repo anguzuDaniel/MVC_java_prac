@@ -3,6 +3,8 @@ package app.controller;
 import app.model.*;
 import app.view.FormEvent;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class Controller {
@@ -60,5 +62,17 @@ public class Controller {
         Person person = new Person(name, occupation, ageCat, employmentCategory, taxId, isUs, genderCat);
 
         db.addPerson(person);
+    }
+
+    public void saveToFile(File file) throws IOException {
+        db.saveToFile(file);
+    }
+
+    public void loadFromFile(File file) throws IOException, ClassNotFoundException {
+        db.loadFromFile(file);
+    }
+
+    public void removePerson(int index) {
+        db.removePerson(index);
     }
 }
