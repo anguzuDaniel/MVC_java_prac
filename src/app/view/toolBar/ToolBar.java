@@ -30,7 +30,7 @@ public class ToolBar extends JPanel implements ActionListener {
         add(refreshBtn);
     }
 
-    public void setStringListener(ToolBarListener listener) {
+    public void setToolBarListener(ToolBarListener listener) {
         this.toolBarListener = listener;
     }
 
@@ -45,9 +45,11 @@ public class ToolBar extends JPanel implements ActionListener {
 
         if (clicked == saveBtn) {
             if (toolBarListener != null) {
+                toolBarListener.saveEventOccurred();
             }
         }else {
             if (toolBarListener != null) {
+                toolBarListener.refreshEventOccurred();
             }
         }
     }

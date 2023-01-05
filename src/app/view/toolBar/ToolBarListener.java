@@ -2,5 +2,7 @@ package app.view.toolBar;
 
 public interface ToolBarListener {
 
-    void saveEventOccurred(String text);
+    void saveEventOccurred();
+
+    void refreshEventOccurred();
 }
