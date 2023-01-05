@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.prefs.Preferences;
 
 public class PrefsDialog extends JDialog {
 
@@ -13,6 +14,8 @@ public class PrefsDialog extends JDialog {
     private SpinnerNumberModel spinnerModel;
     private JPasswordField passwordField;
     private JTextField userField;
+    private PrefListener prefListener;
+
 
     public PrefsDialog(Frame parent) {
         super(parent, "Preferences", false);
@@ -24,6 +27,8 @@ public class PrefsDialog extends JDialog {
 
         passwordField = new JPasswordField(10);
         userField = new JTextField(10);
+
+
 
         // shows what user sees when they are typing
         passwordField.setEchoChar('*');
@@ -80,16 +85,22 @@ public class PrefsDialog extends JDialog {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Integer value = (Integer) portSpinner.getValue();
+                Integer port = (Integer) portSpinner.getValue();
 
                 String user = userField.getText();
 
                 // passwordField.getPassword returns an array of characters
                 char[] password = passwordField.getPassword();
-
                 System.out.println(user + ": " + new String(password));
 
-                System.out.println(value);
+
+                if (prefListener != null) {
+
+                    // we use new String to convert the password to a string since we retrieve it as as characters
+                    prefListener.preferenceSet(user, new String(password), port);
+                }
+
+                System.out.println(port);
 
                 setVisible(false);
             }
@@ -107,5 +118,16 @@ public class PrefsDialog extends JDialog {
 
         setSize(400, 300);
         setLocationRelativeTo(parent);
+    }
+
+    // set default preference credentials
+    public void setDefault(String user, String password, int port) {
+        userField.setText(user);
+        passwordField.setText(password);
+        portSpinner.setValue(port);
+    }
+
+    public void setPrefsListener(PrefListener prefListener) {
+        this.prefListener = prefListener;
     }
 }

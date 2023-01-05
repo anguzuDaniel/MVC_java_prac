@@ -4,6 +4,7 @@ import app.controller.Controller;
 import app.view.Tables.PersonTableListener;
 import app.view.Tables.TablePanel;
 import app.view.fileInput.PersonFileFilter;
+import app.view.preferences.PrefListener;
 import app.view.preferences.PrefsDialog;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 public class MainFrame extends JFrame {
 
@@ -22,6 +24,7 @@ public class MainFrame extends JFrame {
     private Controller controller;
     private TablePanel tablePanel;
     private PrefsDialog prefsDialog;
+    private Preferences prefs;
 
 
     public MainFrame() {
@@ -37,11 +40,29 @@ public class MainFrame extends JFrame {
 
         tablePanel.setData(controller.getPeople());
 
+        // create a key/node used to get preferences
+        prefs = Preferences.userRoot().node("db");
+
         tablePanel.setPersonTableListener(new PersonTableListener() {
             public void rowDeleted(int row) {
                 controller.removePerson(row);
             }
         });
+
+        prefsDialog.setPrefsListener(new PrefListener() {
+            @Override
+            public void preferenceSet(String user, String password, int port) {
+                prefs.put("user", user);
+                prefs.put("password", password);
+                prefs.put("port", Integer.toString(port));
+            }
+        });
+
+        // default values for the preference
+        String user = prefs.get("user", "");
+        String password = prefs.get("password", "");
+        Integer port = prefs.getInt("port", 3306);
+        prefsDialog.setDefault(user, password, port);
 
         fileChooser = new JFileChooser();
         fileChooser.addChoosableFileFilter(new PersonFileFilter());
