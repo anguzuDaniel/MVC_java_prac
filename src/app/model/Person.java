@@ -3,7 +3,7 @@ package app.model;
 import java.io.Serializable;
 
 public class Person implements Serializable {
-    private static int count = 0;
+    private static int count = 1;
     private int id;
     private String name;
     private String occupation;
