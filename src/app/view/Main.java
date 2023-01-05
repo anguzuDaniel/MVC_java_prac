@@ -10,7 +10,7 @@ public class Main {
             @Override
             public void run() {
                 try {
-                    UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
                     MainFrame mainFrame = new MainFrame();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
