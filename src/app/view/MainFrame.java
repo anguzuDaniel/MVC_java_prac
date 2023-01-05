@@ -146,8 +146,12 @@ public class MainFrame extends JFrame {
         // accelerators add key commands to a section on the page for example exit(CTRL X)
         exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
 
-        // opens the import dialog and to import a file
+        // opens the import dialog and to import a file using control i
         importDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
+
+        // opens reference dialogue using control p
+        prefsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+
 
         importDataItem.addActionListener(new ActionListener() {
             @Override
