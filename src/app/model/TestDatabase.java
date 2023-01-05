@@ -26,6 +26,13 @@ public class TestDatabase {
             throw new RuntimeException(e);
         }
 
+        // loads data from the database
+        try {
+            db.loadData();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         db.disconnect();
     }
 }

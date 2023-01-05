@@ -6,6 +6,8 @@ import app.view.Tables.TablePanel;
 import app.view.fileInput.PersonFileFilter;
 import app.view.preferences.PrefListener;
 import app.view.preferences.PrefsDialog;
+import app.view.toolBar.ToolBarListener;
+import app.view.toolBar.ToolBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,10 +71,10 @@ public class MainFrame extends JFrame {
 
         setJMenuBar(createMenuBar());
 
-        toolBar.setStringListener(new StringListener() {
+        toolBar.setStringListener(new ToolBarListener() {
             @Override
-            public void textEmitted(String text) {
-                textPanel.appendText(text);
+            public void saveEventOccurred(String text) {
+
             }
         });
 
