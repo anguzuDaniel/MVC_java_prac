@@ -28,6 +28,9 @@ public class MainFrame extends JFrame {
     private final TablePanel tablePanel;
     private final PrefsDialog prefsDialog;
     private final Preferences prefs;
+    private JSplitPane splitPane;
+    private JTabbedPane tabPane;
+    private MessagePanel messagePanel;
 
 
     public MainFrame() {
@@ -36,10 +39,23 @@ public class MainFrame extends JFrame {
         textPanel = new TextPanel();
         toolBar = new ToolBar();
         formPanel = new FormPanel();
+
         tablePanel = new TablePanel();
+        controller = new Controller();
+        tabPane = new JTabbedPane();
+        messagePanel = new MessagePanel();
+
+
         prefsDialog = new PrefsDialog(this);
 
-        controller = new Controller();
+        tabPane.add("Person database",tablePanel);
+        tabPane.add("Messages", messagePanel);
+
+        // create a split btn the components specified
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, formPanel, tabPane);
+        splitPane.setOneTouchExpandable(true);
+
+
 
         tablePanel.setData(controller.getPeople());
 
@@ -107,10 +123,8 @@ public class MainFrame extends JFrame {
 
         setLayout(new BorderLayout());
 
-        add(formPanel, BorderLayout.WEST);
-        add(toolBar, BorderLayout.NORTH);
-//        add(textPanel, BorderLayout.CENTER);
-        add(tablePanel, BorderLayout.CENTER);
+        add(toolBar, BorderLayout.PAGE_START);
+        add(splitPane, BorderLayout.CENTER);
 
         setMinimumSize(new Dimension(500, 400));
         setSize(600, 500);
@@ -165,6 +179,11 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) e.getSource();
+
+                if (showFormItem.isSelected()) {
+                    splitPane.setDividerLocation((int)formPanel.getMinimumSize().getWidth());
+                }
+
                 formPanel.setVisible(menuItem.isSelected());
             }
         });

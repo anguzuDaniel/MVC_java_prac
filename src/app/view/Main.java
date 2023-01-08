@@ -9,13 +9,15 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                try {
-                    UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-                    MainFrame mainFrame = new MainFrame();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+//                try {
+//                    UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+//                    MainFrame mainFrame = new MainFrame();
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+                new MainFrame();
             }
+
         });
 
     }
